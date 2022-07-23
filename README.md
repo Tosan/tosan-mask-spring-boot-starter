@@ -5,7 +5,7 @@ This project provides an Spring-Boot Starter that provides masking sensitive dat
 ## Usage
 
 The `tosan-mask-spring-boot-starter` brings most of the required configuration with it, therefore you only need to add
-it as a maven dependency and enable the desired functionality. with this library you can define your desired mask style
+it as a maven dependency and enable the desired functionality. with this library you can define your desired mask style,
 and it will be registered in library automatically.
 
 ```
@@ -95,7 +95,7 @@ each one of below ReplaceHelpers can be injected in code and be used separately 
 
 > RegexReplaceHelper
 
-replaceHelper decider have different methods that use these helpers separately.
+replaceHelperDecider have different methods that use these helpers separately.
 
 ### extending mask types
 
@@ -174,4 +174,4 @@ If you have a suggestion that would make this project better, please fork the re
 You can also simply open an issue with the tag "enhancement".
 
 ## License
-The source files in this repository are available under the [Apache License Version 2.0](./LICENSE).
+The source files in this repository are available under the [Apache License Version 2.0](./LICENSE.txt).
