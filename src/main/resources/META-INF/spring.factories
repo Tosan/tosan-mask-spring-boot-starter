@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.tosan.tools.mask.starter.configuration.MaskBeanConfiguration,\
+com.tosan.tools.mask.starter.configuration.StaticBeanConfiguration
