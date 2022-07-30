@@ -9,8 +9,6 @@ import com.tosan.tools.mask.starter.business.ValueMaskFactory;
 import com.tosan.tools.mask.starter.business.enumeration.MaskType;
 import com.tosan.tools.mask.starter.config.SecureParameter;
 import com.tosan.tools.mask.starter.exception.JsonConvertException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -19,8 +17,6 @@ import java.util.Map;
  * @since 6/23/2021
  */
 public class JacksonReplaceHelper extends ReplaceHelper {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(JacksonReplaceHelper.class);
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -34,7 +30,6 @@ public class JacksonReplaceHelper extends ReplaceHelper {
         try {
             jsonNode = objectMapper.readTree(json);
         } catch (JsonProcessingException e) {
-            LOGGER.error("invalid json in JacksonReplaceHelper");
             throw new JsonConvertException("invalidJson");
         }
         JsonNode result = process(jsonNode, "root", securedParameterNames);

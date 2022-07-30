@@ -3,12 +3,15 @@ package com.tosan.tools.mask.starter.replace;
 import com.tosan.tools.mask.starter.config.SecureParametersConfig;
 import com.tosan.tools.mask.starter.dto.JsonReplaceResultDto;
 import com.tosan.tools.mask.starter.exception.JsonConvertException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author M.khoshnevisan
  * @since 6/23/2021
  */
 public class JsonReplaceHelperDecider {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonReplaceHelperDecider.class);
 
     private final JacksonReplaceHelper jacksonReplaceHelper;
     private final RegexReplaceHelper regexReplaceHelper;
@@ -31,6 +34,7 @@ public class JsonReplaceHelperDecider {
         try {
             return jacksonReplaceHelper.replace(json, secureParametersConfig.getSecuredParametersMap());
         } catch (JsonConvertException e) {
+            LOGGER.error("invalid json in JacksonReplaceHelper");
             return regexReplaceHelper.replace(json, secureParametersConfig.getSecuredParametersMap());
         }
     }
