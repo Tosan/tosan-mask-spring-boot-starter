@@ -19,4 +19,13 @@ public class StaticJsonReplaceHelperDecider {
     public static String replace(String json) {
         return jsonReplaceHelperDecider.replace(json);
     }
+
+    /**
+     * @param fieldName fieldName
+     * @param fieldValue fieldValue
+     * @return maskedValue
+     */
+    public static String replace(String fieldName, String fieldValue) {
+        return jsonReplaceHelperDecider.replace(fieldName, fieldValue);
+    }
 }
