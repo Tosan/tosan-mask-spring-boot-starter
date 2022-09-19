@@ -3,6 +3,7 @@ package com.tosan.tools.mask.starter.replace;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tosan.tools.mask.starter.business.ComparisonTypeFactory;
 import com.tosan.tools.mask.starter.business.ValueMasker;
 import com.tosan.tools.mask.starter.business.ValueMaskFactory;
 import com.tosan.tools.mask.starter.business.enumeration.MaskType;
@@ -18,6 +19,10 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author M.khoshnevisan
@@ -30,19 +35,22 @@ public class JacksonReplaceHelperUTest {
     private JacksonReplaceHelper replacerHelper;
     private Map<String, SecureParameter> securedParameterMap;
     private ValueMaskFactory valueMaskFactory;
+    private ComparisonTypeFactory comparisonTypeFactory;
     private static final String MASKED_VALUE = "MASKED_VALUE";
 
     @BeforeEach
     public void setup() {
         System.out.println("setup before JacksonReplaceHelperUTest");
         valueMaskFactory = Mockito.mock(ValueMaskFactory.class);
-        replacerHelper = new JacksonReplaceHelper(valueMaskFactory);
+        comparisonTypeFactory = mock(ComparisonTypeFactory.class);
+        replacerHelper = new JacksonReplaceHelper(valueMaskFactory, comparisonTypeFactory);
         securedParameterMap = new HashMap<>();
         securedParameterMap.put("pan", new SecureParameter("pan", MaskType.PAN));
         securedParameterMap.put("password", new SecureParameter("password", MaskType.COMPLETE));
         ValueMasker valueMasker = Mockito.mock(ValueMasker.class);
         Mockito.when(valueMasker.mask(ArgumentMatchers.anyString())).thenReturn(MASKED_VALUE);
         Mockito.when(valueMaskFactory.getValueMask(ArgumentMatchers.any())).thenReturn(valueMasker);
+        when(comparisonTypeFactory.compare(eq("password"), any())).thenReturn(true);
     }
 
     @Test
@@ -113,6 +121,7 @@ public class JacksonReplaceHelperUTest {
                 "]" +
                 "}" +
                 "}";
+        when(comparisonTypeFactory.compare(eq("pan"), any())).thenReturn(true);
         String replaced = replacerHelper.replace(input, securedParameterMap);
         verifyResult(expected, replaced);
     }
@@ -135,6 +144,7 @@ public class JacksonReplaceHelperUTest {
                 "}";
 
         securedParameterMap.put("panList", new SecureParameter("panList", MaskType.PAN));
+        when(comparisonTypeFactory.compare(eq("panList"), any())).thenReturn(true);
         String replaced = replacerHelper.replace(input, securedParameterMap);
         verifyResult(expected, replaced);
     }

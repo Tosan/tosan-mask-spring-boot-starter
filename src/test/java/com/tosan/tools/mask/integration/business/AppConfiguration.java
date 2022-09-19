@@ -1,5 +1,7 @@
 package com.tosan.tools.mask.integration.business;
 
+import com.tosan.tools.mask.starter.business.enumeration.ComparisonType;
+import com.tosan.tools.mask.starter.business.enumeration.MaskType;
 import com.tosan.tools.mask.starter.config.SecureParameter;
 import com.tosan.tools.mask.starter.config.SecureParametersConfig;
 import com.tosan.tools.mask.starter.configuration.MaskBeanConfiguration;
@@ -33,6 +35,13 @@ public class AppConfiguration {
     public SecureParametersConfig securedParametersWithDefault() {
         Set<SecureParameter> securedParameters = MaskBeanConfiguration.SECURED_PARAMETERS;
         securedParameters.add(new SecureParameter("testField", UserMaskType.TEST_MASK_TYPE));
+        return new SecureParametersConfig(securedParameters);
+    }
+
+    @Bean
+    public SecureParametersConfig securedParametersWithComparisonType() {
+        Set<SecureParameter> securedParameters = new HashSet<>();
+        securedParameters.add(new SecureParameter("pan", MaskType.PAN, ComparisonType.RIGHT_LIKE));
         return new SecureParametersConfig(securedParameters);
     }
 }

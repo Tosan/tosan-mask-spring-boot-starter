@@ -49,14 +49,14 @@ public class MaskBeanConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public JacksonReplaceHelper jacksonReplaceHelper(ValueMaskFactory valueMaskFactory) {
-        return new JacksonReplaceHelper(valueMaskFactory);
+    public JacksonReplaceHelper jacksonReplaceHelper(ValueMaskFactory valueMaskFactory, ComparisonTypeFactory comparisonTypeFactory) {
+        return new JacksonReplaceHelper(valueMaskFactory, comparisonTypeFactory);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public RegexReplaceHelper regexReplaceHelper(ValueMaskFactory valueMaskFactory) {
-        return new RegexReplaceHelper(valueMaskFactory);
+    public RegexReplaceHelper regexReplaceHelper(ValueMaskFactory valueMaskFactory, ComparisonTypeFactory comparisonTypeFactory) {
+        return new RegexReplaceHelper(valueMaskFactory, comparisonTypeFactory);
     }
 
     @Bean
@@ -93,5 +93,35 @@ public class MaskBeanConfiguration {
     @ConditionalOnMissingBean
     public SemiValueMasker semiValueMask() {
         return new SemiValueMasker();
+    }
+
+    @Bean
+    public ComparisonTypeFactory comparisonTypeFactory(List<ComparisonTypeFactory.ComparisonFunction> comparisonFunctionList) {
+        return new ComparisonTypeFactory(comparisonFunctionList);
+    }
+
+    @Bean
+    public ComparisonTypeFactory.EqualsIgnoreCaseComparisonFunction equalIgnoreCaseComparisonFunction() {
+        return new ComparisonTypeFactory.EqualsIgnoreCaseComparisonFunction();
+    }
+
+    @Bean
+    public ComparisonTypeFactory.EqualsComparisonFunction equalComparisonFunction() {
+        return new ComparisonTypeFactory.EqualsComparisonFunction();
+    }
+
+    @Bean
+    public ComparisonTypeFactory.LikeComparisonFunction likeComparisonFunction() {
+        return new ComparisonTypeFactory.LikeComparisonFunction();
+    }
+
+    @Bean
+    public ComparisonTypeFactory.LeftLikeComparisonFunction leftLikeComparisonFunction() {
+        return new ComparisonTypeFactory.LeftLikeComparisonFunction();
+    }
+
+    @Bean
+    public ComparisonTypeFactory.RightLikeComparisonFunction rightLikeComparisonFunction() {
+        return new ComparisonTypeFactory.RightLikeComparisonFunction();
     }
 }

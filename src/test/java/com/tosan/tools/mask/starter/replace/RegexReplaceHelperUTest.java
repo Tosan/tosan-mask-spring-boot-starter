@@ -3,6 +3,7 @@ package com.tosan.tools.mask.starter.replace;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tosan.tools.mask.starter.business.ComparisonTypeFactory;
 import com.tosan.tools.mask.starter.business.ValueMasker;
 import com.tosan.tools.mask.starter.business.ValueMaskFactory;
 import com.tosan.tools.mask.starter.business.enumeration.MaskType;
@@ -28,12 +29,14 @@ public class RegexReplaceHelperUTest {
     private RegexReplaceHelper replacerHelper;
     private Map<String, SecureParameter> securedParameterMap;
     private ValueMaskFactory valueMaskFactory;
+    private ComparisonTypeFactory comparisonTypeFactory;
     private static final String MASKED_VALUE = "MASKED_VALUE";
 
     @BeforeEach
     public void setup() {
         valueMaskFactory = mock(ValueMaskFactory.class);
-        replacerHelper = new RegexReplaceHelper(valueMaskFactory);
+        comparisonTypeFactory = mock(ComparisonTypeFactory.class);
+        replacerHelper = new RegexReplaceHelper(valueMaskFactory, comparisonTypeFactory);
         securedParameterMap = new HashMap<>();
         securedParameterMap.put("pan", new SecureParameter("pan", MaskType.PAN));
         securedParameterMap.put("password", new SecureParameter("password", MaskType.COMPLETE));
@@ -82,6 +85,7 @@ public class RegexReplaceHelperUTest {
                 "]" +
                 "}" +
                 "}";
+        when(comparisonTypeFactory.compare(eq("password"), any())).thenReturn(true);
         String replaced = replacerHelper.replace(input, securedParameterMap);
         verifyResult(expected, replaced);
     }
@@ -110,6 +114,8 @@ public class RegexReplaceHelperUTest {
                 "]" +
                 "}" +
                 "}";
+        when(comparisonTypeFactory.compare(eq("pan"), any())).thenReturn(true);
+        when(comparisonTypeFactory.compare(eq("password"), any())).thenReturn(true);
         String replaced = replacerHelper.replace(input, securedParameterMap);
         verifyResult(expected, replaced);
     }

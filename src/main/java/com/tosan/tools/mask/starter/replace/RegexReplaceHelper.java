@@ -1,5 +1,6 @@
 package com.tosan.tools.mask.starter.replace;
 
+import com.tosan.tools.mask.starter.business.ComparisonTypeFactory;
 import com.tosan.tools.mask.starter.business.ValueMaskFactory;
 import com.tosan.tools.mask.starter.business.enumeration.MaskType;
 import com.tosan.tools.mask.starter.config.SecureParameter;
@@ -14,8 +15,8 @@ import java.util.regex.Pattern;
  */
 public class RegexReplaceHelper extends ReplaceHelper {
 
-    public RegexReplaceHelper(ValueMaskFactory valueMaskFactory) {
-        super(valueMaskFactory);
+    public RegexReplaceHelper(ValueMaskFactory valueMaskFactory, ComparisonTypeFactory comparisonTypeFactory) {
+        super(valueMaskFactory, comparisonTypeFactory);
     }
 
     @Override

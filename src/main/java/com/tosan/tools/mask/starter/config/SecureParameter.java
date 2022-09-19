@@ -1,5 +1,6 @@
 package com.tosan.tools.mask.starter.config;
 
+import com.tosan.tools.mask.starter.business.enumeration.ComparisonType;
 import com.tosan.tools.mask.starter.business.enumeration.MaskType;
 
 import java.util.Objects;
@@ -12,10 +13,17 @@ public class SecureParameter {
 
     private final String parameterName;
     private final MaskType maskType;
+    private ComparisonType comparisonType = ComparisonType.EQUALS_IGNORE_CASE;
 
     public SecureParameter(String parameterName, MaskType maskType) {
         this.parameterName = parameterName;
         this.maskType = maskType;
+    }
+
+    public SecureParameter(String parameterName, MaskType maskType, ComparisonType comparisonType) {
+        this.parameterName = parameterName;
+        this.maskType = maskType;
+        this.comparisonType = comparisonType;
     }
 
     public String getParameterName() {
@@ -24,6 +32,13 @@ public class SecureParameter {
 
     public MaskType getMaskType() {
         return maskType;
+    }
+
+    public ComparisonType getComparisonType() {
+        if (comparisonType == null) {
+            this.comparisonType = ComparisonType.EQUALS_IGNORE_CASE;
+        }
+        return comparisonType;
     }
 
     @Override

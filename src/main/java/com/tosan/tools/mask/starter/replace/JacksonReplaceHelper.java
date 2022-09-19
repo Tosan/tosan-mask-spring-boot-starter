@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import com.tosan.tools.mask.starter.business.ComparisonTypeFactory;
 import com.tosan.tools.mask.starter.business.ValueMaskFactory;
 import com.tosan.tools.mask.starter.business.enumeration.MaskType;
 import com.tosan.tools.mask.starter.config.SecureParameter;
@@ -20,8 +21,8 @@ public class JacksonReplaceHelper extends ReplaceHelper {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public JacksonReplaceHelper(ValueMaskFactory valueMaskFactory) {
-        super(valueMaskFactory);
+    public JacksonReplaceHelper(ValueMaskFactory valueMaskFactory, ComparisonTypeFactory comparisonTypeFactory) {
+        super(valueMaskFactory, comparisonTypeFactory);
     }
 
     @Override

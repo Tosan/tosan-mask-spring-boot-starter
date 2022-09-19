@@ -164,6 +164,32 @@ this feature will be expanded to more options in the future.
 mask functionality has been provided for static use with the help of StaticJsonReplaceHelperDecider class.
 replace methods of this class can be called via static method.
 
+### adding comparisonType to secureParameter
+from version 1.0.4 you can define comparison type for each secure parameter element. this types consist of:
+
+> EQUALS
+
+> EQUALS_IGNORE_CASE
+
+> LIKE
+
+> RIGHT_LIKE
+
+> LEFT_LIKE
+
+if you don't specify any comparison type EQUALS_IGNORE_CASE type will be selected and applied. these types
+indicate the operator comparing fieldName and parameterName and can be defined in your configuration as below:
+
+```
+    @Bean
+    public SecureParametersConfig securedParametersWithComparisonType() {
+        Set<SecureParameter> securedParameters = new HashSet<>();
+        securedParameters.add(new SecureParameter("pan", MaskType.PAN, ComparisonType.RIGHT_LIKE));
+        return new SecureParametersConfig(securedParameters);
+    }
+
+```
+
 ### Prerequisites
 This Library requires java version 8 or above.
 

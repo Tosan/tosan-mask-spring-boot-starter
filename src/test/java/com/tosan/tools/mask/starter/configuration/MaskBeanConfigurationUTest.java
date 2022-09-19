@@ -47,13 +47,13 @@ public class MaskBeanConfigurationUTest {
 
     @Test
     public void testJacksonReplaceHelper_defaultConfig_createCorrectConfig() {
-        JacksonReplaceHelper jacksonReplaceHelper = maskBeanConfiguration.jacksonReplaceHelper(mock(ValueMaskFactory.class));
+        JacksonReplaceHelper jacksonReplaceHelper = maskBeanConfiguration.jacksonReplaceHelper(mock(ValueMaskFactory.class), mock(ComparisonTypeFactory.class));
         assertNotNull(jacksonReplaceHelper);
     }
 
     @Test
     public void testRegexReplaceHelper_defaultConfig_createCorrectConfig() {
-        RegexReplaceHelper regexReplaceHelper = maskBeanConfiguration.regexReplaceHelper(mock(ValueMaskFactory.class));
+        RegexReplaceHelper regexReplaceHelper = maskBeanConfiguration.regexReplaceHelper(mock(ValueMaskFactory.class), mock(ComparisonTypeFactory.class));
         assertNotNull(regexReplaceHelper);
     }
 
