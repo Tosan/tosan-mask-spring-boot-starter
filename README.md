@@ -161,9 +161,6 @@ your bean as below:
 attentions: field name checking is currently comparing the exact filed name with equalsIgnoreCase method. 
 this feature will be expanded to more options in the future.
 
-mask functionality has been provided for static use with the help of StaticJsonReplaceHelperDecider class.
-replace methods of this class can be called via static method.
-
 ### adding comparisonType to secureParameter
 from version 1.0.4 you can define comparison type for each secure parameter element. this types consist of:
 

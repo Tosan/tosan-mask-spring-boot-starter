@@ -1,7 +1,6 @@
 package com.tosan.tools.mask.integration;
 
 import com.tosan.tools.mask.starter.replace.JsonReplaceHelperDecider;
-import com.tosan.tools.mask.starter.replace.StaticJsonReplaceHelperDecider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,12 +24,6 @@ public class JsonReplaceHelperDeciderITest {
     @Test
     public void testAddingMaskType() {
         String replace = jsonReplaceHelperDecider.replace("{\"testField\":\"5454fskdfsk\"}");
-        System.out.println(replace);
-    }
-
-    @Test
-    public void testStaticReplaceHelperDecider() {
-        String replace = StaticJsonReplaceHelperDecider.replace("{\"pan\":\"5022291075648374\"}");
         System.out.println(replace);
     }
 }
