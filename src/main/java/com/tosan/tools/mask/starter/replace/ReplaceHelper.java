@@ -17,7 +17,7 @@ public abstract class ReplaceHelper {
     protected ValueMaskFactory valueMaskFactory;
     protected ComparisonTypeFactory comparisonTypeFactory;
 
-    public ReplaceHelper(ValueMaskFactory valueMaskFactory, ComparisonTypeFactory comparisonTypeFactory) {
+    protected ReplaceHelper(ValueMaskFactory valueMaskFactory, ComparisonTypeFactory comparisonTypeFactory) {
         this.valueMaskFactory = valueMaskFactory;
         this.comparisonTypeFactory = comparisonTypeFactory;
     }

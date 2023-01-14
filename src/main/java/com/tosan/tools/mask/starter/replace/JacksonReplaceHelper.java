@@ -31,7 +31,7 @@ public class JacksonReplaceHelper extends ReplaceHelper {
         try {
             jsonNode = objectMapper.readTree(json);
         } catch (JsonProcessingException e) {
-            throw new JsonConvertException("invalidJson");
+            throw new JsonConvertException("invalidJson", e);
         }
         JsonNode result = process(jsonNode, "root", securedParameterNames);
         return result.toString();
