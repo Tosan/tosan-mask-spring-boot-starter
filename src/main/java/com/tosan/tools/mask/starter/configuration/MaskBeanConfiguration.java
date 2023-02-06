@@ -7,6 +7,7 @@ import com.tosan.tools.mask.starter.config.SecureParametersConfig;
 import com.tosan.tools.mask.starter.replace.JacksonReplaceHelper;
 import com.tosan.tools.mask.starter.replace.JsonReplaceHelperDecider;
 import com.tosan.tools.mask.starter.replace.RegexReplaceHelper;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import java.util.Set;
  * @since 6/20/2022
  */
 @Configuration
+@AutoConfiguration
 public class MaskBeanConfiguration {
 
     public static final Set<SecureParameter> SECURED_PARAMETERS = new HashSet<SecureParameter>() {

@@ -188,7 +188,7 @@ indicate the operator comparing fieldName and parameterName and can be defined i
 ```
 
 ### Prerequisites
-This Library requires java version 8 or above.
+This Library requires java version 17 or above and spring boot version 3.0.2 and above.
 
 ## Contributing
 Any contribution is greatly appreciated.
