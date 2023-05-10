@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import com.fasterxml.jackson.databind.node.ValueNode;
 import com.tosan.tools.mask.starter.business.ComparisonTypeFactory;
 import com.tosan.tools.mask.starter.business.ValueMaskFactory;
 import com.tosan.tools.mask.starter.business.enumeration.MaskType;
@@ -33,8 +35,19 @@ public class JacksonReplaceHelper extends ReplaceHelper {
         } catch (JsonProcessingException e) {
             throw new JsonConvertException("invalidJson", e);
         }
+        if (isPrimitiveType(jsonNode)) {
+            throw new JsonConvertException("primitive json type");
+        }
         JsonNode result = process(jsonNode, "root", securedParameterNames);
         return result.toString();
+    }
+
+    private boolean isPrimitiveType(JsonNode jsonNode) {
+        if (jsonNode instanceof ValueNode) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private JsonNode process(JsonNode currentNode, String nodeName, Map<String, SecureParameter> securedParameterNames) {
@@ -50,7 +63,10 @@ public class JacksonReplaceHelper extends ReplaceHelper {
             currentNode.fields().forEachRemaining(entry -> entry.setValue(process(entry.getValue(), entry.getKey(), securedParameterNames)));
             return currentNode;
         } else {
-            if (currentNode instanceof TextNode) {
+            if (currentNode instanceof ValueNode) {
+                if (currentNode instanceof NullNode) {
+                    return currentNode;
+                }
                 String replace = replace(nodeName, currentNode.asText(), securedParameterNames);
                 return new TextNode(replace);
             } else {
@@ -63,7 +79,7 @@ public class JacksonReplaceHelper extends ReplaceHelper {
         MaskType maskType = checkAndGetMaskType(fieldName, securedParameterNames);
         String value = fieldValue;
         if (maskType != null && value != null) {
-                value = maskValue(fieldValue, maskType);
+            value = maskValue(fieldValue, maskType);
         }
         return value;
     }
