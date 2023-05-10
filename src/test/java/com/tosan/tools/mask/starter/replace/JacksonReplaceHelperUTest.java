@@ -56,7 +56,7 @@ public class JacksonReplaceHelperUTest {
     @Test
     public void testReplace_noParameterToReplace_noChangeToInput() throws JsonProcessingException {
         String input = "{" +
-                "\"id\" : 8767," +
+                "\"id\" : \"8767\"," +
                 "\"name\":\"mina\"," +
                 "\"person\":{" +
                 "\"name\":\"mina\"," +
@@ -83,7 +83,35 @@ public class JacksonReplaceHelperUTest {
                 "}" +
                 "}";
         String expected = "{" +
+                "\"id\" : \"8767\"," +
+                "\"password\":\"MASKED_VALUE\"," +
+                "\"person\":{" +
+                "\"name\":\"mina\"," +
+                "\"array\":[" +
+                "{\"family\":\"kh\", \"password\":\"MASKED_VALUE\"}," +
+                "{\"password\":\"MASKED_VALUE\"}" +
+                "]" +
+                "}" +
+                "}";
+        String replaced = replacerHelper.replace(input, securedParameterMap);
+        verifyResult(expected, replaced);
+    }
+
+    @Test
+    public void testReplace_numberPasswordParameter_maskPassword() throws JsonProcessingException {
+        String input = "{" +
                 "\"id\" : 8767," +
+                "\"password\":\"8574945\"," +
+                "\"person\":{" +
+                "\"name\":\"mina\"," +
+                "\"array\":[" +
+                "{\"family\":\"kh\", \"password\":\"4736443\"}," +
+                "{\"password\":\"983485\"}" +
+                "]" +
+                "}" +
+                "}";
+        String expected = "{" +
+                "\"id\" : \"8767\"," +
                 "\"password\":\"MASKED_VALUE\"," +
                 "\"person\":{" +
                 "\"name\":\"mina\"," +
@@ -111,7 +139,7 @@ public class JacksonReplaceHelperUTest {
                 "}" +
                 "}";
         String expected = "{" +
-                "\"id\" : 8767," +
+                "\"id\" : \"8767\"," +
                 "\"name\":\"8574945\"," +
                 "\"person\":{" +
                 "\"pan\":\"MASKED_VALUE\"," +
@@ -136,7 +164,7 @@ public class JacksonReplaceHelperUTest {
                 "}" +
                 "}";
         String expected = "{" +
-                "\"id\" : 8767," +
+                "\"id\" : \"8767\"," +
                 "\"name\":\"8574945\"," +
                 "\"person\":{" +
                 "\"panList\":[\"MASKED_VALUE\",\"MASKED_VALUE\",\"MASKED_VALUE\"]" +
@@ -152,7 +180,7 @@ public class JacksonReplaceHelperUTest {
     @Test
     public void testReplace_nullNode_replaceWithNoException() throws JsonProcessingException {
         String input = "{" +
-                "\"id\" : 8767," +
+                "\"id\" : \"8767\"," +
                 "\"name\":null," +
                 "\"person\":{" +
                 "\"panList\":[\"4893000049888387\",\"5093000049888345\",\"5087000049888390\"]" +
@@ -165,7 +193,7 @@ public class JacksonReplaceHelperUTest {
     @Test
     public void testReplace_emptyObjectNode_replaceWithNoException() throws JsonProcessingException {
         String input = "{" +
-                "\"id\" : 8767," +
+                "\"id\" : \"8767\"," +
                 "\"name\":null," +
                 "\"person\":{" +
                 "}" +
@@ -178,7 +206,7 @@ public class JacksonReplaceHelperUTest {
     @Test
     public void testReplace_emptyArray_replaceWithNoException() throws JsonProcessingException {
         String input = "{" +
-                "\"id\" : 8767," +
+                "\"id\" : \"8767\"," +
                 "\"name\":null," +
                 "\"person\":[" +
                 "]" +
@@ -190,7 +218,7 @@ public class JacksonReplaceHelperUTest {
     @Test
     public void testReplace_nullElementInArray_replaceWithNoException() throws JsonProcessingException {
         String input = "{" +
-                "\"id\" : 8767," +
+                "\"id\" : \"8767\"," +
                 "\"name\":null," +
                 "\"person\":[null, null" +
                 "]" +
@@ -206,6 +234,18 @@ public class JacksonReplaceHelperUTest {
                 "\"name\":null," +
                 "\"person\":[null, null" +
                 "}";
+        assertThrows(JsonConvertException.class, () -> replacerHelper.replace(input, securedParameterMap));
+    }
+
+    @Test
+    public void testReplace_intType_throwInvalidJsonException() {
+        String input = "87474";
+        assertThrows(JsonConvertException.class, () -> replacerHelper.replace(input, securedParameterMap));
+    }
+
+    @Test
+    public void testReplace_StringType_throwInvalidJsonException() {
+        String input = "\"f874rf\"";
         assertThrows(JsonConvertException.class, () -> replacerHelper.replace(input, securedParameterMap));
     }
 
