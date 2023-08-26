@@ -39,7 +39,7 @@ public class JacksonReplaceHelper extends ReplaceHelper {
             throw new JsonConvertException("primitive json type");
         }
         JsonNode result = process(jsonNode, "root", securedParameterNames);
-        return result.toString();
+        return result.toPrettyString();
     }
 
     private boolean isPrimitiveType(JsonNode jsonNode) {
