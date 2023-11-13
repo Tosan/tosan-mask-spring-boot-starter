@@ -26,4 +26,9 @@ public class MaskType {
      * complete mask
      */
     public static final MaskType COMPLETE = new MaskType();
+
+    /**
+     * Mobile mask
+     */
+    public static final MaskType MOBILE = new MaskType();
 }
