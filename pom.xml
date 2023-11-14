@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.6</version>
+        <version>3.1.5</version>
         <relativePath />
     </parent>
 
@@ -14,14 +14,14 @@
 
     <name>tosan-mask-spring-boot-starter</name>
     <description>
-        This project provides an spring boot starter that provides masking sensitive data in JSON string functionality.
+        This project provides a spring boot starter that provides masking sensitive data in JSON string functionality.
     </description>
     <url>https://github.com/Tosan/tosan-mask-spring-boot-starter</url>
 
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
@@ -30,7 +30,7 @@
             <name>Mina Khoshnevisan</name>
             <email>m.khoshnevisan@tosan.com</email>
             <organization>tosan</organization>
-            <organizationUrl>http://www.tosan.com</organizationUrl>
+            <organizationUrl>https://www.tosan.com</organizationUrl>
         </developer>
     </developers>
 
@@ -80,7 +80,6 @@
                         <target>${java.version}</target>
                         <showWarnings>true</showWarnings>
                         <fork>true</fork>
-                        <optimize>true</optimize>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -120,11 +119,13 @@
                     </executions>
                     <configuration>
                         <detectJavaApiLink>false</detectJavaApiLink>
+                        <doclint>none</doclint>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.1</version>
                     <configuration>
                         <tagNameFormat>v@{project.version}</tagNameFormat>
                         <releaseProfiles>release</releaseProfiles>
