@@ -15,11 +15,10 @@ public class MobileValueMasker implements ValueMasker {
 
     @Override
     public String mask(String mobile) {
-        String maskedMobile = "";
         if (mobile != null && !mobile.isEmpty()) {
-            int length = mobile.length();
-            return SEMI_ENCRYPTED + mobile.substring(0, length - 7) + "***" + mobile.substring(length - 4);
+            return mobile.length() < 7 ? SEMI_ENCRYPTED + mobile : SEMI_ENCRYPTED + mobile.substring(0,
+                    mobile.length() - 7) + "***" + mobile.substring(mobile.length() - 4);
         }
-        return maskedMobile;
+        return "";
     }
 }

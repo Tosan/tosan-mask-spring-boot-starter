@@ -57,4 +57,9 @@ public class MobileValueMaskerUTest {
     public void testMask_givenParameterWith00980_thenReturnCorrectMaskedMobile() {
         assertEquals("*SEMI_ENCRYPTED:00980911***4506", mobileValueMasker.mask("009809118534506"));
     }
+
+    @Test
+    public void testMask_givenParameterWithLowerThan7Characters_thenReturnCorrectMaskedMobile() {
+        assertEquals("*SEMI_ENCRYPTED:091185", mobileValueMasker.mask("091185"));
+    }
 }
