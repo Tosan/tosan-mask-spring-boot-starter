@@ -32,6 +32,7 @@ public class MaskBeanConfiguration {
             add(new SecureParameter("cvv2", MaskType.SEMI));
             add(new SecureParameter("expDate", MaskType.SEMI));
             add(new SecureParameter("username", MaskType.SEMI));
+            add(new SecureParameter("mobile", MaskType.MOBILE));
         }
     };
 
@@ -95,6 +96,12 @@ public class MaskBeanConfiguration {
     @ConditionalOnMissingBean
     public SemiValueMasker semiValueMask() {
         return new SemiValueMasker();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MobileValueMasker mobileValueMasker() {
+        return new MobileValueMasker();
     }
 
     @Bean
