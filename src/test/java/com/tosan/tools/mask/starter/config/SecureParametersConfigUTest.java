@@ -24,4 +24,18 @@ public class SecureParametersConfigUTest {
         Map<String, SecureParameter> result = secureParametersConfig.getSecuredParametersMap();
         assertEquals(secureParameter, result.get("test"));
     }
+
+    @Test
+    public void testSecureParametersConfig_addParametersCorrectly() {
+        Set<SecureParameter> securedParameters = new HashSet<>();
+        SecureParameter secureParameter = new SecureParameter("test", MaskType.COMPLETE);
+        securedParameters.add(secureParameter);
+        SecureParametersConfig secureParametersConfig = new SecureParametersConfig(securedParameters);
+        SecureParameter secureParameter2 = new SecureParameter("param", MaskType.SEMI);
+        secureParametersConfig.addSecureParam(secureParameter2);
+
+        Map<String, SecureParameter> result = secureParametersConfig.getSecuredParametersMap();
+        assertEquals(secureParameter, result.get("test"));
+        assertEquals(secureParameter2, result.get("param"));
+    }
 }
