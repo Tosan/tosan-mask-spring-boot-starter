@@ -14,11 +14,12 @@ public class MobileValueMasker implements ValueMasker {
     }
 
     @Override
-    public String mask(String mobile) {
-        if (mobile != null && !mobile.isEmpty()) {
-            return mobile.length() < 7 ? SEMI_ENCRYPTED + mobile : SEMI_ENCRYPTED + mobile.substring(0,
-                    mobile.length() - 7) + "***" + mobile.substring(mobile.length() - 4);
+    public String mask(String originalValue) {
+        if (originalValue != null && !originalValue.isBlank()) {
+            return originalValue.length() < 7 ? ENCRYPTED :
+                    originalValue.substring(0, originalValue.length() - 7) + "***" +
+                            originalValue.substring(originalValue.length() - 4);
         }
-        return "";
+        return originalValue;
     }
 }

@@ -18,7 +18,7 @@ public class JsonReplaceHelperDeciderITest {
     @Test
     public void testReplacing() {
         String replace = jsonReplaceHelperDecider.replace(
-                "{\"pan\":\"5022291075648374\", \"password\":\"1234\", \"mobile\":\"09118534506\"}");
+                "{\"pan\":\"5022291075648374\", \"password\":\"1234\", \"mobile\":\"09123456789\"}");
         System.out.println(replace);
     }
 
