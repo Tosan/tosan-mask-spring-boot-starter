@@ -24,7 +24,7 @@ import java.util.Set;
 @AutoConfiguration
 public class MaskBeanConfiguration {
 
-    public static final Set<SecureParameter> SECURED_PARAMETERS = new HashSet<SecureParameter>() {
+    public static final Set<SecureParameter> SECURED_PARAMETERS = new HashSet<>() {
         {
             add(new SecureParameter("password", MaskType.COMPLETE));
             add(new SecureParameter("pan", MaskType.PAN));
@@ -102,6 +102,12 @@ public class MaskBeanConfiguration {
     @ConditionalOnMissingBean
     public MobileValueMasker mobileValueMasker() {
         return new MobileValueMasker();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MiddleValueMasker middleValueMasker() {
+        return new MiddleValueMasker();
     }
 
     @Bean

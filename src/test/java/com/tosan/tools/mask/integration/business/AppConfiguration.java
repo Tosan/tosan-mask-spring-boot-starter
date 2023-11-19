@@ -22,7 +22,7 @@ public class AppConfiguration {
     @Bean
     @Primary
     public SecureParametersConfig secureParametersConfig() {
-        Set<SecureParameter> securedParameters = new HashSet<SecureParameter>() {
+        Set<SecureParameter> securedParameters = new HashSet<>() {
             {
                 add(new SecureParameter("pan", UserMaskType.PAN));
                 add(new SecureParameter("mobile", UserMaskType.MOBILE));
