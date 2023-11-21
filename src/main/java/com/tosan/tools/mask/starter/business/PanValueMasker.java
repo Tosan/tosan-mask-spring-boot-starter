@@ -14,21 +14,16 @@ public class PanValueMasker implements ValueMasker {
     }
 
     @Override
-    public String mask(String panPlainValue) {
-        String encryptedPan = "";
-        if (panPlainValue != null && !panPlainValue.isEmpty()) {
-            if (panPlainValue.length() == 16) {
-                encryptedPan = SEMI_ENCRYPTED.concat(panPlainValue.substring(0, 6)).concat("******").concat(panPlainValue.substring(12, 16));
-            } else if (panPlainValue.length() == 19) {
-                encryptedPan = SEMI_ENCRYPTED.concat(panPlainValue.substring(0, 6)).concat("*********").concat(panPlainValue.substring(15, 19));
+    public String mask(String originalValue) {
+        if (originalValue != null && !originalValue.isBlank()) {
+            if (originalValue.length() == 16) {
+                return originalValue.substring(0, 6).concat("******").concat(originalValue.substring(12, 16));
+            } else if (originalValue.length() == 19) {
+                return originalValue.substring(0, 6).concat("*********").concat(originalValue.substring(15, 19));
             } else {
-                if (panPlainValue.length() >= 2) {
-                    encryptedPan = SEMI_ENCRYPTED.concat(panPlainValue.substring(0, panPlainValue.length() / 2));
-                } else {
-                    encryptedPan = ENCRYPTED;
-                }
+                return MaskUtil.middleMask(originalValue);
             }
         }
-        return encryptedPan;
+        return originalValue;
     }
 }

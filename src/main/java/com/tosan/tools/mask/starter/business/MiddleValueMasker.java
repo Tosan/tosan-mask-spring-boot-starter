@@ -15,14 +15,6 @@ public class MiddleValueMasker implements ValueMasker {
 
     @Override
     public String mask(String originalValue) {
-        if (originalValue == null || originalValue.isBlank()) {
-            return originalValue;
-        } else if (originalValue.length() <= 3) {
-            return ENCRYPTED;
-        } else {
-            int plainLength = originalValue.length() / 3;
-            return originalValue.substring(0, plainLength) + "*".repeat(originalValue.length() - plainLength * 2) +
-                    originalValue.substring(originalValue.length() - plainLength);
-        }
+        return MaskUtil.middleMask(originalValue);
     }
 }
