@@ -61,7 +61,7 @@ public class ComparisonTypeFactory {
     public static class LikeComparisonFunction implements ComparisonFunction {
         @Override
         public boolean compare(String fieldName, String parameterName) {
-            if (parameterName == null || parameterName.length() == 0) {
+            if (parameterName == null || parameterName.isEmpty()) {
                 return false;
             }
             return fieldName.toLowerCase().contains(parameterName.toLowerCase());
@@ -76,7 +76,7 @@ public class ComparisonTypeFactory {
     public static class LeftLikeComparisonFunction implements ComparisonFunction {
         @Override
         public boolean compare(String fieldName, String parameterName) {
-            if (parameterName == null || parameterName.length() == 0) {
+            if (parameterName == null || parameterName.isEmpty()) {
                 return false;
             }
             return fieldName.toLowerCase().startsWith(parameterName.toLowerCase());
@@ -91,7 +91,7 @@ public class ComparisonTypeFactory {
     public static class RightLikeComparisonFunction implements ComparisonFunction {
         @Override
         public boolean compare(String fieldName, String parameterName) {
-            if (parameterName == null || parameterName.length() == 0) {
+            if (parameterName == null || parameterName.isEmpty()) {
                 return false;
             }
             return fieldName.toLowerCase().endsWith(parameterName.toLowerCase());
