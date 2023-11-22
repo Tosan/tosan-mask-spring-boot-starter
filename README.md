@@ -87,6 +87,8 @@ default mask types work as below:
 > MaskType.SEMI : mask 5 last characters for strings more than 10 char length and mask half for less than 10 char strings
 
 > MaskType.MOBILE : mask 3 middle characters of a mobile number (e.g. `0912***6789`) 
+ 
+> MaskType.MIDDLE : mask middle characters of any string (e.g. `001****678`)
 
 JsonReplaceHelperDecider bean uses two other beans named JacksonReplaceHelper and RegexReplaceHelper beans to mask
 strings. in such a way that it tries to use JacksonReplaceHelper first. in order to use this kind of replaceHelper no
