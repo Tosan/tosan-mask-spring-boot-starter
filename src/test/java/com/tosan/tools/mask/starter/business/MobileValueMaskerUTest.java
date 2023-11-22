@@ -4,6 +4,7 @@ import com.tosan.tools.mask.starter.business.enumeration.MaskType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * @author Hadi Zahedian
@@ -19,8 +20,8 @@ public class MobileValueMaskerUTest {
     }
 
     @Test
-    public void testMask_givenNullParameter_thenReturnEmptyString() {
-        assertEquals("", mobileValueMasker.mask(null));
+    public void testMask_givenNullParameter_thenReturnNull() {
+        assertNull(mobileValueMasker.mask(null));
     }
 
     @Test
@@ -30,36 +31,36 @@ public class MobileValueMaskerUTest {
 
     @Test
     public void testMask_givenParameterWith09_thenReturnCorrectMaskedMobile() {
-        assertEquals("*SEMI_ENCRYPTED:0911***4506", mobileValueMasker.mask("09118534506"));
+        assertEquals("0912***6789", mobileValueMasker.mask("09123456789"));
     }
 
     @Test
     public void testMask_givenParameterWith9_thenReturnCorrectMaskedMobile() {
-        assertEquals("*SEMI_ENCRYPTED:911***4506", mobileValueMasker.mask("9118534506"));
+        assertEquals("912***6789", mobileValueMasker.mask("9123456789"));
     }
 
     @Test
     public void testMask_givenParameterWithPlus98_thenReturnCorrectMaskedMobile() {
-        assertEquals("*SEMI_ENCRYPTED:+98911***4506", mobileValueMasker.mask("+989118534506"));
+        assertEquals("+98912***6789", mobileValueMasker.mask("+989123456789"));
     }
 
     @Test
     public void testMask_givenParameterWithPlus980_thenReturnCorrectMaskedMobile() {
-        assertEquals("*SEMI_ENCRYPTED:+980911***4506", mobileValueMasker.mask("+9809118534506"));
+        assertEquals("+980912***6789", mobileValueMasker.mask("+9809123456789"));
     }
 
     @Test
     public void testMask_givenParameterWith0098_thenReturnCorrectMaskedMobile() {
-        assertEquals("*SEMI_ENCRYPTED:0098911***4506", mobileValueMasker.mask("00989118534506"));
+        assertEquals("0098912***6789", mobileValueMasker.mask("00989123456789"));
     }
 
     @Test
     public void testMask_givenParameterWith00980_thenReturnCorrectMaskedMobile() {
-        assertEquals("*SEMI_ENCRYPTED:00980911***4506", mobileValueMasker.mask("009809118534506"));
+        assertEquals("00980912***6789", mobileValueMasker.mask("009809123456789"));
     }
 
     @Test
-    public void testMask_givenParameterWithLowerThan7Characters_thenReturnCorrectMaskedMobile() {
-        assertEquals("*SEMI_ENCRYPTED:091185", mobileValueMasker.mask("091185"));
+    public void testMask_givenParameterWithLowerThan7Characters_thenReturnEncrypted() {
+        assertEquals(ValueMasker.ENCRYPTED, mobileValueMasker.mask("091285"));
     }
 }
