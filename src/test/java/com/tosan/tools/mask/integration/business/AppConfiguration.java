@@ -25,6 +25,7 @@ public class AppConfiguration {
         Set<SecureParameter> securedParameters = new HashSet<SecureParameter>() {
             {
                 add(new SecureParameter("pan", UserMaskType.PAN));
+                add(new SecureParameter("mobile", UserMaskType.MOBILE));
                 add(new SecureParameter("testField", UserMaskType.TEST_MASK_TYPE));
             }
         };

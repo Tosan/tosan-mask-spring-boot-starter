@@ -29,13 +29,14 @@ public class MaskBeanConfigurationUTest {
         SecureParametersConfig secureParametersConfig = maskBeanConfiguration.secureParametersConfig();
         Map<String, SecureParameter> securedParameters = secureParametersConfig.getSecuredParametersMap();
         assertNotNull(securedParameters);
-        assertEquals(6, securedParameters.size());
+        assertEquals(7, securedParameters.size());
         assertEquals(MaskType.COMPLETE, securedParameters.get("password").getMaskType());
         assertEquals(MaskType.PAN, securedParameters.get("pan").getMaskType());
         assertEquals(MaskType.COMPLETE, securedParameters.get("pin").getMaskType());
         assertEquals(MaskType.SEMI, securedParameters.get("cvv2").getMaskType());
         assertEquals(MaskType.SEMI, securedParameters.get("expDate").getMaskType());
         assertEquals(MaskType.SEMI, securedParameters.get("username").getMaskType());
+        assertEquals(MaskType.MOBILE, securedParameters.get("mobile").getMaskType());
     }
 
     @Test
