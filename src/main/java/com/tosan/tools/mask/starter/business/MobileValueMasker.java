@@ -15,11 +15,6 @@ public class MobileValueMasker implements ValueMasker {
 
     @Override
     public String mask(String originalValue) {
-        if (originalValue != null && !originalValue.isBlank()) {
-            return originalValue.length() < 7 ? ENCRYPTED :
-                    originalValue.substring(0, originalValue.length() - 7) + "***" +
-                            originalValue.substring(originalValue.length() - 4);
-        }
-        return originalValue;
+        return MaskUtil.mobileMask(originalValue);
     }
 }

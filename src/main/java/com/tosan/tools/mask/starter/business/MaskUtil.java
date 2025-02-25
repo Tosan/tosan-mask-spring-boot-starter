@@ -17,4 +17,13 @@ public class MaskUtil {
                     text.substring(text.length() - plainLength);
         }
     }
+
+    public static String mobileMask(String mobile) {
+        if (mobile != null && !mobile.isBlank()) {
+            return mobile.length() < 7 ? ValueMasker.ENCRYPTED :
+                    mobile.substring(0, mobile.length() - 7) + "***" +
+                            mobile.substring(mobile.length() - 4);
+        }
+        return mobile;
+    }
 }
