@@ -1,8 +1,5 @@
 package com.tosan.tools.mask.starter.replace;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tosan.tools.mask.starter.business.ComparisonTypeFactory;
 import com.tosan.tools.mask.starter.business.ValueMasker;
 import com.tosan.tools.mask.starter.business.ValueMaskFactory;
@@ -13,6 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
  */
 public class JacksonReplaceHelperUTest {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final JsonMapper objectMapper = JsonMapper.shared();
 
     private JacksonReplaceHelper replacerHelper;
     private Map<String, SecureParameter> securedParameterMap;
@@ -54,7 +54,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_noParameterToReplace_noChangeToInput() throws JsonProcessingException {
+    public void testReplace_noParameterToReplace_noChangeToInput() throws JacksonException {
         String input = "{" +
                 "\"id\" : \"8767\"," +
                 "\"name\":\"mina\"," +
@@ -70,7 +70,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_passwordParameter_maskPassword() throws JsonProcessingException {
+    public void testReplace_passwordParameter_maskPassword() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"password\":\"8574945\"," +
@@ -98,7 +98,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_numberPasswordParameter_maskPassword() throws JsonProcessingException {
+    public void testReplace_numberPasswordParameter_maskPassword() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"password\":\"8574945\"," +
@@ -126,7 +126,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_panParameter_maskPan() throws JsonProcessingException {
+    public void testReplace_panParameter_maskPan() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":\"8574945\"," +
@@ -155,7 +155,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_listOfPan_maskAllElementsInList() throws JsonProcessingException {
+    public void testReplace_listOfPan_maskAllElementsInList() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":\"8574945\"," +
@@ -178,7 +178,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_nullNode_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_nullNode_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : \"8767\"," +
                 "\"name\":null," +
@@ -191,7 +191,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_emptyObjectNode_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_emptyObjectNode_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : \"8767\"," +
                 "\"name\":null," +
@@ -204,7 +204,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_emptyArray_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_emptyArray_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : \"8767\"," +
                 "\"name\":null," +
@@ -216,7 +216,7 @@ public class JacksonReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_nullElementInArray_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_nullElementInArray_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : \"8767\"," +
                 "\"name\":null," +
@@ -249,7 +249,7 @@ public class JacksonReplaceHelperUTest {
         assertThrows(JsonConvertException.class, () -> replacerHelper.replace(input, securedParameterMap));
     }
 
-    public void verifyResult(String input, String replaced) throws JsonProcessingException {
+    public void verifyResult(String input, String replaced) throws JacksonException {
         JsonNode actual = objectMapper.readTree(replaced);
         JsonNode expected = objectMapper.readTree(input);
         assertEquals(actual, expected);
