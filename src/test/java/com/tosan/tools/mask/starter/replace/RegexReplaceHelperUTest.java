@@ -1,8 +1,5 @@
 package com.tosan.tools.mask.starter.replace;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tosan.tools.mask.starter.business.ComparisonTypeFactory;
 import com.tosan.tools.mask.starter.business.ValueMasker;
 import com.tosan.tools.mask.starter.business.ValueMaskFactory;
@@ -12,6 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
  */
 public class RegexReplaceHelperUTest {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final JsonMapper objectMapper = JsonMapper.shared();
 
     private RegexReplaceHelper replacerHelper;
     private Map<String, SecureParameter> securedParameterMap;
@@ -46,7 +46,7 @@ public class RegexReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_noParameterToReplace_noChangeToInput() throws JsonProcessingException {
+    public void testReplace_noParameterToReplace_noChangeToInput() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":\"mina\"," +
@@ -62,7 +62,7 @@ public class RegexReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_passwordParameter_maskPassword() throws JsonProcessingException {
+    public void testReplace_passwordParameter_maskPassword() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"password\":\"8574945\"," +
@@ -91,7 +91,7 @@ public class RegexReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_panParameter_maskPan() throws JsonProcessingException {
+    public void testReplace_panParameter_maskPan() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":\"8574945\"," +
@@ -121,7 +121,7 @@ public class RegexReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_nullNode_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_nullNode_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":null," +
@@ -134,7 +134,7 @@ public class RegexReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_emptyObjectNode_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_emptyObjectNode_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":null," +
@@ -146,7 +146,7 @@ public class RegexReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_emptyArray_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_emptyArray_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":null," +
@@ -158,7 +158,7 @@ public class RegexReplaceHelperUTest {
     }
 
     @Test
-    public void testReplace_nullElementInArray_replaceWithNoException() throws JsonProcessingException {
+    public void testReplace_nullElementInArray_replaceWithNoException() throws JacksonException {
         String input = "{" +
                 "\"id\" : 8767," +
                 "\"name\":null," +
@@ -169,7 +169,7 @@ public class RegexReplaceHelperUTest {
         verifyResult(input, replaced);
     }
 
-    public void verifyResult(String input, String replaced) throws JsonProcessingException {
+    public void verifyResult(String input, String replaced) throws JacksonException {
         JsonNode actual = objectMapper.readTree(replaced);
         JsonNode expected = objectMapper.readTree(input);
         Assertions.assertEquals(actual, expected);

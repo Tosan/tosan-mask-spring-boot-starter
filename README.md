@@ -92,7 +92,7 @@ default mask types work as below:
 
 JsonReplaceHelperDecider bean uses two other beans named JacksonReplaceHelper and RegexReplaceHelper beans to mask
 strings. in such a way that it tries to use JacksonReplaceHelper first. in order to use this kind of replaceHelper no
-exception must happen while parsing json string with jackson library. if JsonProcessingException happen in string
+exception must happen while parsing json string with jackson library. if JacksonException happen in string
 parsing, replacer will be switched to RegexReplaceHelper. this ReplaceHelper tries to mask values with regex pattern.
 each one of below ReplaceHelpers can be injected in code and be used separately as desired. 
 
